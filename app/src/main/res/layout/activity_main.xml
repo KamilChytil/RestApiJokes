@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="133dp"
+        android:layout_height="79dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="196dp"
+        android:text="Id: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <TextView
+        android:id="@+id/setupTextView"
+        android:layout_width="133dp"
+        android:layout_height="79dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="36dp"
+        android:text="Setup: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.248" />
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="105dp"
+        android:layout_height="41dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="36dp"
+        android:text="Category: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.111" />
+
+    <TextView
+        android:id="@+id/jokeTextView"
+        android:layout_width="308dp"
+        android:layout_height="113dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:text="Joke: "
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.407" />
+</androidx.constraintlayout.widget.ConstraintLayout>
