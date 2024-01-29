@@ -1,8 +1,12 @@
     package com.example.jokeapi
 
+    import android.content.Context
+    import android.content.Intent
     import android.os.AsyncTask
     import android.os.Bundle
+    import android.widget.Button
     import android.widget.TextView
+    import android.widget.Toast
     import androidx.appcompat.app.AppCompatActivity
     import org.json.JSONObject
     import java.io.BufferedReader
@@ -19,9 +23,55 @@
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
-            // Execute the AsyncTask to make the API call
-            JokeAsyncTask().execute()
+            // Set up the button click listener
+            val generateJokeButton: Button = findViewById(R.id.generateJokeButton)
+            generateJokeButton.setOnClickListener {
+                // Execute the AsyncTask to make the API call
+                JokeAsyncTask().execute()
+            }
+
+            val jokeDetailButton: Button = findViewById(R.id.jokedetailActivity)
+            jokeDetailButton.setOnClickListener {
+                // Retrieve the joke detail text from the TextView
+                val jokeDetailText = findViewById<TextView>(R.id.jokeTextView).text.toString()
+
+                // Start the JokeDetailActivity and pass the joke detail text
+                val intent = Intent(this, JokeDetailActivity::class.java)
+                intent.putExtra("JOKE_DETAIL_TEXT", jokeDetailText)
+                startActivity(intent)
+            }
+            val saveButton: Button = findViewById(R.id.saveButton)
+            saveButton.setOnClickListener {
+                // Retrieve the joke information
+                val id = findViewById<TextView>(R.id.idTextView).text.toString()
+                val category = findViewById<TextView>(R.id.categoryTextView).text.toString()
+                val setup = findViewById<TextView>(R.id.setupTextView).text.toString()
+                val joke = findViewById<TextView>(R.id.jokeTextView).text.toString()
+
+                // Save the joke information using SharedPreferences
+                saveJoke(id, category, setup, joke)
+            }
         }
+        private fun saveJoke(id: String, category: String, setup: String, joke: String) {
+            val sharedPreferences = getSharedPreferences("SavedJokes", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            // Get the existing saved jokes
+            val savedJokes = sharedPreferences.getStringSet("saved_jokes", HashSet()) as HashSet<String>
+
+            // Create a new string representing the current joke
+            val currentJoke = "$id|$category|$setup|$joke"
+
+            // Add the current joke to the set of saved jokes
+            savedJokes.add(currentJoke)
+
+            // Save the updated set of jokes
+            editor.putStringSet("saved_jokes", savedJokes)
+            editor.apply()
+
+            Toast.makeText(this, "Joke saved!", Toast.LENGTH_SHORT).show()
+        }
+
 
         inner class JokeAsyncTask : AsyncTask<Void, Void, String>() {
 
