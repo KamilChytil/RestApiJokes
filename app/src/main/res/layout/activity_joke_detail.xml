@@ -7,7 +7,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/inputRemoveContainer">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,16 +20,25 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="Joke Detail" />
-
-            <Button
-                android:id="@+id/backButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/jokeDetailTextView"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="16dp"
-                android:text="Go Back" />
         </RelativeLayout>
     </ScrollView>
+
+    <!-- Input Text and Remove Button Container -->
+    <LinearLayout
+        android:id="@+id/inputRemoveContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/backButton"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <!-- Go Back Button -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Go Back" />
 
 </RelativeLayout>

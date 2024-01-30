@@ -5,6 +5,7 @@
     import android.os.AsyncTask
     import android.os.Bundle
     import android.widget.Button
+    import android.widget.CheckBox
     import android.widget.TextView
     import android.widget.Toast
     import androidx.appcompat.app.AppCompatActivity
@@ -23,49 +24,95 @@
             super.onCreate(savedInstanceState)
             setContentView(R.layout.activity_main)
 
-            // Set up the button click listener
+            val anyCheckBox: CheckBox = findViewById(R.id.anycheckBox)
+            val customCheckBox: CheckBox = findViewById(R.id.customcheckBox)
+            val ProgrammingcheckBox: CheckBox = findViewById(R.id.ProgrammingcheckBox)
+            val DarkcheckBox: CheckBox = findViewById(R.id.DarkcheckBox)
+
+            var categorytext: String = ""
+            // Set click listener for "Any" CheckBox
+            anyCheckBox.setOnClickListener {
+                if (anyCheckBox.isChecked) {
+                    customCheckBox.isChecked = false
+                    ProgrammingcheckBox.isEnabled = false
+                    DarkcheckBox.isEnabled = false
+                    ProgrammingcheckBox.isChecked = false
+                    DarkcheckBox.isChecked = false
+                    categorytext = "/Any"
+                }
+            }
+
+            // Set click listener for "Custom" CheckBox
+            customCheckBox.setOnClickListener {
+                if (customCheckBox.isChecked) {
+                    anyCheckBox.isChecked = false
+                    ProgrammingcheckBox.isEnabled = true
+                    DarkcheckBox.isEnabled = true
+                }
+            }
+            ProgrammingcheckBox.setOnClickListener {
+                if (ProgrammingcheckBox.isChecked) {
+                    ProgrammingcheckBox.isChecked = true
+                    if(DarkcheckBox.isChecked) {
+                        categorytext = "/Programming,Dark"
+                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
+
+                    }else{
+                        categorytext= "/Programming"
+                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
+
+                    }
+                }else{
+                    ProgrammingcheckBox.isChecked = false
+
+                }
+            }
+            DarkcheckBox.setOnClickListener {
+                if (DarkcheckBox.isChecked) {
+                    DarkcheckBox.isChecked = true
+                    if(ProgrammingcheckBox.isChecked) {
+                        categorytext = "/Programming,Dark"
+                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
+
+                    }else{
+                        categorytext= "/Dark"
+                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
+                    }
+                }else{
+                    DarkcheckBox.isChecked = false
+
+                }
+            }
             val generateJokeButton: Button = findViewById(R.id.generateJokeButton)
             generateJokeButton.setOnClickListener {
-                // Execute the AsyncTask to make the API call
-                JokeAsyncTask().execute()
+                JokeAsyncTask(categorytext).execute()
             }
 
             val jokeDetailButton: Button = findViewById(R.id.jokedetailActivity)
             jokeDetailButton.setOnClickListener {
-                // Retrieve the joke detail text from the TextView
                 val jokeDetailText = findViewById<TextView>(R.id.jokeTextView).text.toString()
 
-                // Start the JokeDetailActivity and pass the joke detail text
                 val intent = Intent(this, JokeDetailActivity::class.java)
                 intent.putExtra("JOKE_DETAIL_TEXT", jokeDetailText)
                 startActivity(intent)
             }
             val saveButton: Button = findViewById(R.id.saveButton)
             saveButton.setOnClickListener {
-                // Retrieve the joke information
                 val id = findViewById<TextView>(R.id.idTextView).text.toString()
                 val category = findViewById<TextView>(R.id.categoryTextView).text.toString()
                 val setup = findViewById<TextView>(R.id.setupTextView).text.toString()
                 val joke = findViewById<TextView>(R.id.jokeTextView).text.toString()
 
-                // Save the joke information using SharedPreferences
                 saveJoke(id, category, setup, joke)
             }
         }
         private fun saveJoke(id: String, category: String, setup: String, joke: String) {
             val sharedPreferences = getSharedPreferences("SavedJokes", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
-
-            // Get the existing saved jokes
             val savedJokes = sharedPreferences.getStringSet("saved_jokes", HashSet()) as HashSet<String>
-
-            // Create a new string representing the current joke
             val currentJoke = "$id|$category|$setup|$joke"
-
-            // Add the current joke to the set of saved jokes
             savedJokes.add(currentJoke)
 
-            // Save the updated set of jokes
             editor.putStringSet("saved_jokes", savedJokes)
             editor.apply()
 
@@ -73,14 +120,18 @@
         }
 
 
-        inner class JokeAsyncTask : AsyncTask<Void, Void, String>() {
+        inner class JokeAsyncTask(private val categorytext: String) : AsyncTask<Void, Void, String>() {
 
             override fun doInBackground(vararg params: Void): String? {
                 var result: String?
                 var connection: HttpURLConnection? = null
 
                 try {
-                    val url = URL("https://v2.jokeapi.dev/joke/Any?idRange=1-100")
+
+                    var baseUrl = "https://v2.jokeapi.dev/joke"
+                    var fullUrl = "$baseUrl$categorytext?idRange=1-100"
+
+                    var url = URL(fullUrl)
                     connection = url.openConnection() as HttpURLConnection
                     connection.requestMethod = "GET"
 
