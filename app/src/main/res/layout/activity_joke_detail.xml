@@ -23,7 +23,6 @@
         </RelativeLayout>
     </ScrollView>
 
-    <!-- Input Text and Remove Button Container -->
     <LinearLayout
         android:id="@+id/inputRemoveContainer"
         android:layout_width="match_parent"
@@ -33,7 +32,6 @@
 
     </LinearLayout>
 
-    <!-- Go Back Button -->
     <Button
         android:id="@+id/backButton"
         android:layout_width="match_parent"

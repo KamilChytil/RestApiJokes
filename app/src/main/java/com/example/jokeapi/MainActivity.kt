@@ -28,9 +28,9 @@
             val customCheckBox: CheckBox = findViewById(R.id.customcheckBox)
             val ProgrammingcheckBox: CheckBox = findViewById(R.id.ProgrammingcheckBox)
             val DarkcheckBox: CheckBox = findViewById(R.id.DarkcheckBox)
-
+            DarkcheckBox.isEnabled = false
+            ProgrammingcheckBox.isChecked = false
             var categorytext: String = ""
-            // Set click listener for "Any" CheckBox
             anyCheckBox.setOnClickListener {
                 if (anyCheckBox.isChecked) {
                     customCheckBox.isChecked = false
@@ -42,7 +42,6 @@
                 }
             }
 
-            // Set click listener for "Custom" CheckBox
             customCheckBox.setOnClickListener {
                 if (customCheckBox.isChecked) {
                     anyCheckBox.isChecked = false
@@ -55,11 +54,9 @@
                     ProgrammingcheckBox.isChecked = true
                     if(DarkcheckBox.isChecked) {
                         categorytext = "/Programming,Dark"
-                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
 
                     }else{
                         categorytext= "/Programming"
-                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
 
                     }
                 }else{
@@ -72,11 +69,9 @@
                     DarkcheckBox.isChecked = true
                     if(ProgrammingcheckBox.isChecked) {
                         categorytext = "/Programming,Dark"
-                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
 
                     }else{
                         categorytext= "/Dark"
-                        Toast.makeText(this, categorytext, Toast.LENGTH_SHORT).show()
                     }
                 }else{
                     DarkcheckBox.isChecked = false
@@ -154,7 +149,6 @@
             override fun onPostExecute(result: String?) {
                 super.onPostExecute(result)
                 if (result != null) {
-                    // Parse the JSON response
 
                     val jokeObject = JSONObject(result)
                     val type = jokeObject.getString("type")
@@ -175,7 +169,6 @@
                     }
                     val id = jokeObject.getString("id")
                     val category = jokeObject.getString("category")
-                    // Update UI with the retrieved data
                     findViewById<TextView>(R.id.categoryTextView).text = "Category: $category"
                     findViewById<TextView>(R.id.idTextView).text = "id: $id"
 

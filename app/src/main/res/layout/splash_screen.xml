@@ -4,6 +4,4 @@
     android:layout_height="match_parent"
     android:background="@drawable/background">
 
-    <!-- Add any additional UI elements for your splash screen, such as a logo or loading indicator -->
-
 </RelativeLayout>
