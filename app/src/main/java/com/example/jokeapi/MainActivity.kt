@@ -30,7 +30,7 @@
             val DarkcheckBox: CheckBox = findViewById(R.id.DarkcheckBox)
             DarkcheckBox.isEnabled = false
             ProgrammingcheckBox.isChecked = false
-            var categorytext: String = ""
+            var categorytext: String = "/Any"
             anyCheckBox.setOnClickListener {
                 if (anyCheckBox.isChecked) {
                     customCheckBox.isChecked = false
@@ -61,6 +61,7 @@
                     }
                 }else{
                     ProgrammingcheckBox.isChecked = false
+                    categorytext = ""
 
                 }
             }
@@ -75,6 +76,7 @@
                     }
                 }else{
                     DarkcheckBox.isChecked = false
+                    categorytext = ""
 
                 }
             }

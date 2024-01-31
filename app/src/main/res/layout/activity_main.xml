@@ -21,8 +21,8 @@
 
     <TextView
         android:id="@+id/setupTextView"
-        android:layout_width="133dp"
-        android:layout_height="79dp"
+        android:layout_width="312dp"
+        android:layout_height="94dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:text="Setup: "
@@ -34,8 +34,8 @@
 
     <TextView
         android:id="@+id/categoryTextView"
-        android:layout_width="105dp"
-        android:layout_height="41dp"
+        android:layout_width="278dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="20dp"
         android:text="Category: "

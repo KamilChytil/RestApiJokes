@@ -33,4 +33,4 @@ class JokeDetailActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.jokeDetailTextView).text = stringBuilder.toString()
     }
-}
+};
